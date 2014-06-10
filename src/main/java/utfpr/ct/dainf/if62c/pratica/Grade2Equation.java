@@ -1,14 +1,16 @@
 package utfpr.ct.dainf.if62c.pratica;
 
+import java.text.DecimalFormat;
+
 /**
  * @author Guilherme Jacichen   <gui_jaci@yahoo.com.br>
  */
 
 /**
- * @param <N1>
+ * @param <N>extends Number>
  */
-public class Grade2Equation <N1 extends Number> {
-    private N1 a, b, c;
+public class Grade2Equation <N extends Number> {
+    private N a, b, c;
     
     /**
      * @param a 
@@ -16,7 +18,7 @@ public class Grade2Equation <N1 extends Number> {
      * @param c
      * @throws utfpr.ct.dainf.if62c.pratica.NullParAG2EquationException
      */
-    public Grade2Equation (N1 a, N1 b, N1 c) throws NullParAG2EquationException{
+    public Grade2Equation (N a, N b, N c) throws NullParAG2EquationException{
         if(a.doubleValue() == 0)
             throw new NullParAG2EquationException();
         this.a = a;
@@ -24,29 +26,29 @@ public class Grade2Equation <N1 extends Number> {
         this.c = c;
     }
    
-    public N1 getAPar(){
+    public N getAPar(){
         return a;
     }
     
-    public N1 getBPar(){
+    public N getBPar(){
         return b;
     }
     
-    public N1 getCPar(){
+    public N getCPar(){
         return c;
     }
     
-    public void setAPar(N1 a) throws NullParAG2EquationException{
+    public void setAPar(N a) throws NullParAG2EquationException{
         if(a.doubleValue() == 0)
             throw new NullParAG2EquationException();
         this.a = a;
     }
     
-    public void setBPar(N1 b){
+    public void setBPar(N b){
         this.b = b;
     }
     
-    public void setCPar(N1 c){
+    public void setCPar(N c){
         this.c = c;
     }
     
@@ -73,5 +75,34 @@ public class Grade2Equation <N1 extends Number> {
     
     protected double getDelta(){
         return Math.pow(b.doubleValue(),2) - 4*a.doubleValue()*c.doubleValue();
+    }
+    
+    @Override
+    public String toString() {
+        StringBuilder s = new StringBuilder();
+        DecimalFormat f = new DecimalFormat("#.##");
+        
+        if(a.doubleValue() != 1)
+            s.append(f.format(a.doubleValue()));
+        s.append("x² ");
+        
+        if(b.doubleValue() > 0)
+            s.append("+");
+
+        if(b.doubleValue() != 0){
+            if(b.doubleValue() != 1)
+                    s.append(f.format(b.doubleValue()));
+            s.append("x ");
+        }
+        
+        if(c.doubleValue() > 0)
+            s.append("+");
+        
+        if(c.doubleValue() != 0)
+                s.append(f.format(c.doubleValue()));
+        
+        s.append(" =0");
+
+        return s.toString();
     }
 }
